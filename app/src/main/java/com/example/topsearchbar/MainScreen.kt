@@ -1,13 +1,15 @@
 package com.example.topsearchbar
 
-import android.R
 import android.util.Log
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -25,12 +27,14 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.FilterQuality.Companion.Medium
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -60,6 +64,11 @@ fun MainScreen(mainViewModel: MainViewModel) {
         }
     ) { contentPadding ->
         // Use contentPadding here if needed
+        Box(modifier = Modifier.padding(contentPadding)
+            .fillMaxSize(),
+            contentAlignment = Alignment.Center) {
+            CircularImage()
+        }
     }
 }
 @Composable
@@ -90,7 +99,7 @@ fun MainAppBar(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DefaultTopBar(onSearchClicked: () -> Unit = {}) {
-    TopAppBar(  modifier = Modifier.height(90.dp),
+    TopAppBar(  modifier = Modifier.height(84.dp),
         title = { Text(text = "Home") },
         actions = {
             IconButton(onClick = onSearchClicked) {
@@ -113,8 +122,8 @@ fun SearchAppBar(
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .height(90.dp),
-        shadowElevation = 6.dp,
+            .height(95.dp),
+        shadowElevation = 43.dp,
         color = MaterialTheme.colorScheme.primary
     ) {
         TextField(
@@ -186,6 +195,22 @@ fun SearchAppBar(
 //fun DefaultPreview() {
 //    MainScreen()
 //}
+
+@Composable
+fun CircularImage(){
+    Image(
+        modifier = Modifier
+            .size(300.dp)
+            .clip(CircleShape)
+            .border(
+                width = 5.dp,
+                color = Color.Red,
+                shape = CircleShape
+            ),
+        painter = painterResource(id = R.drawable.aa),
+        contentDescription = "Circular Image"
+    )
+}
 @Composable
 @Preview
 fun SearchAppBarPreview() {
@@ -195,4 +220,9 @@ fun SearchAppBarPreview() {
         onCloseClicked = {},
         onSearchClicked = {}
     )
+}
+@Composable
+@Preview
+fun CircularImagePreview(){
+    CircularImage()
 }
